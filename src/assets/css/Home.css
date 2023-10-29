@@ -60,7 +60,24 @@
 
 @media (max-width: 768px) {
   .cardSection img {
-    height: 80px; /* Adjust the height as needed */
+    height: 80px; 
+  .homeContent h1 {
+    text-align: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .cardSection img {
+    height: 50px; 
+  }
+  .homeContent h1 {
+    text-align: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .cardSection img {
+    height: 40px; 
   }
   .homeContent h1 {
     text-align: center;
