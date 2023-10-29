@@ -4,10 +4,10 @@
   display: flex;
 
   flex-direction: column;
-  color: white;
+
   font-family: "Caveat", cursive;
   min-height: 100vh;
-  background-color: #f5f2f2;
+  background-color: white;
 }
 
 .home button:hover {
@@ -36,6 +36,19 @@
   border: 2px solid #ffffff;
   border-radius: 5px;
   background-color: transparent;
-  color: #ffffff;
+  color: #000000;
   transition: all 0.3s ease-in-out;
+}
+
+.cardSection {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.cardSection img {
+  height: 200px;
 }
