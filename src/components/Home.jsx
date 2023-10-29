@@ -6,6 +6,7 @@ import Instagram from "../assets/images/instagram.png";
 import Twitter from "../assets/images/twitter.png";
 import Youtube from "../assets/images/youtube.png";
 import Linkedin from "../assets/images/linkedin.png";
+import Spotify from "../assets/images/spotify.png";
 import Cover from "../assets/images/laptop.png";
 
 const cardImages = [
@@ -14,6 +15,7 @@ const cardImages = [
   { src: Twitter },
   { src: Youtube },
   { src: Linkedin },
+  { src: Spotify },
 ];
 
 export default function Home() {
