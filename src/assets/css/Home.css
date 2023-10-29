@@ -40,15 +40,29 @@
   transition: all 0.3s ease-in-out;
 }
 
-.cardSection {
+.cards {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin-top: 2rem;
+}
+
+.cardSection {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr); /* Create 4 columns */
+  grid-template-rows: repeat(3, 1fr); /* Create 3 rows */
+  margin-bottom: 30px;
 }
 
 .cardSection img {
   height: 150px;
+}
+
+@media (max-width: 768px) {
+  .cardSection img {
+    height: 80px; /* Adjust the height as needed */
+  }
+  .homeContent h1 {
+    text-align: center;
+  }
 }

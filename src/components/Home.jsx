@@ -40,22 +40,23 @@ export default function Home() {
   };
 
   // check if the cards match
-  const checkCardMatch = () => {
+  useEffect(() => {
     if (choiceOne && choiceTwo) {
       if (choiceOne.src === choiceTwo.src) {
-        console.log("match");
-        setChoiceOne(null);
-        setChoiceTwo(null);
+        setCards((prevCards) => {
+          return prevCards.map((card) => {
+            if (card.src === choiceOne.src) {
+              return { ...card, matched: true };
+            } else {
+              return card;
+            }
+          });
+        });
+        resetTurns();
       } else {
-        console.log("no match");
-        setChoiceOne(null);
-        setChoiceTwo(null);
+        setTimeout(() => resetTurns(), 1000);
       }
     }
-  };
-
-  useEffect(() => {
-    checkCardMatch();
   }, [choiceOne, choiceTwo]);
 
   const handleCardChoice = (card) => {
@@ -66,6 +67,12 @@ export default function Home() {
     }
   };
 
+  const resetTurns = () => {
+    setChoiceOne(null);
+    setChoiceTwo(null);
+    setTurns((prevTurns) => prevTurns + 1);
+  };
+
   // reset the game
   const resetGame = () => {
     setCards([]);
@@ -74,6 +81,8 @@ export default function Home() {
     setChoiceTwo(null);
     setStartedGame(false);
   };
+
+  //winning message
 
   return (
     <div className="home">
@@ -86,10 +95,18 @@ export default function Home() {
           <button onClick={resetGame}>Reset Game</button>
         </div>
       </div>
-      <div className="cardSection">
-        {cards.map((card) => (
-          <Card key={card.id} card={card} handleCardChoice={handleCardChoice} />
-        ))}
+      <div className="cards">
+        {" "}
+        <div className="cardSection">
+          {cards.map((card) => (
+            <Card
+              key={card.id}
+              card={card}
+              handleCardChoice={handleCardChoice}
+              flipped={card === choiceOne || card === choiceTwo || card.matched}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
