@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Card from "./Card";
 import "../assets/css/Home.css";
 
 import Facebook from "../assets/images/facebook.png";
@@ -7,7 +8,6 @@ import Twitter from "../assets/images/twitter.png";
 import Youtube from "../assets/images/youtube.png";
 import Linkedin from "../assets/images/linkedin.png";
 import Spotify from "../assets/images/spotify.png";
-import Cover from "../assets/images/laptop.png";
 
 const cardImages = [
   { src: Facebook },
@@ -21,7 +21,8 @@ const cardImages = [
 export default function Home() {
   const [cards, setCards] = useState([]);
   const [turns, setTurns] = useState(0);
-  const [clickedCards, setClickedCards] = useState([]);
+  const [choiceOne, setChoiceOne] = useState(null);
+  const [choiceTwo, setChoiceTwo] = useState(null);
   const [startedGame, setStartedGame] = useState(false);
 
   // shuffle the cards
@@ -38,41 +39,41 @@ export default function Home() {
     }
   };
 
-  // reset the game
-  const resetGame = () => {
-    setCards([]);
-    setTurns(0);
-    setClickedCards([]);
-    setStartedGame(false);
-  };
-
-  // handle card click
-  const handleCardClick = (card) => {
-    if (clickedCards.length < 2) {
-      setClickedCards([...clickedCards, card]);
-      if (clickedCards.length === 1) {
-        setTurns(turns + 1);
-        if (clickedCards[0].src === card.src) {
-          setClickedCards([]);
-        } else {
-          setTimeout(() => setClickedCards([]), 1000);
-        }
+  // check if the cards match
+  const checkCardMatch = () => {
+    if (choiceOne && choiceTwo) {
+      if (choiceOne.src === choiceTwo.src) {
+        console.log("match");
+        setChoiceOne(null);
+        setChoiceTwo(null);
+      } else {
+        console.log("no match");
+        setChoiceOne(null);
+        setChoiceTwo(null);
       }
     }
   };
 
-  // display number of turns
-  const displayTurns = () => {
-    if (turns === 0) {
-      return "No turns yet";
-    } else if (turns === 1) {
-      return "1 turn";
-    } else {
-      return `${turns} turns`;
+  useEffect(() => {
+    checkCardMatch();
+  }, [choiceOne, choiceTwo]);
+
+  const handleCardChoice = (card) => {
+    if (choiceOne === null && choiceTwo === null) {
+      setChoiceOne(card);
+    } else if (choiceOne !== null && choiceTwo === null && card !== choiceOne) {
+      setChoiceTwo(card);
     }
   };
 
-  console.log(clickedCards);
+  // reset the game
+  const resetGame = () => {
+    setCards([]);
+    setTurns(0);
+    setChoiceOne(null);
+    setChoiceTwo(null);
+    setStartedGame(false);
+  };
 
   return (
     <div className="home">
@@ -84,22 +85,10 @@ export default function Home() {
           <button onClick={shuffleCards}>Start Game</button>
           <button onClick={resetGame}>Reset Game</button>
         </div>
-        <div className="turns">
-          <p>{displayTurns()}</p>
-        </div>
       </div>
       <div className="cardSection">
         {cards.map((card) => (
-          <div
-            key={card.id}
-            className="card"
-            onClick={() => handleCardClick(card)}
-          >
-            <div>
-              <img className="cardFront" src={card.src} alt="card" />
-              <img className="cardBack" src={Cover} alt="cover" />
-            </div>
-          </div>
+          <Card key={card.id} card={card} handleCardChoice={handleCardChoice} />
         ))}
       </div>
     </div>
