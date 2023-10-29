@@ -89,6 +89,7 @@ export default function Home() {
       <div className="homeContent">
         <div className="homeTitle">
           <h1>Memory Match Mania</h1>
+          <h6>By Alex Hall</h6>
         </div>
         <div className="startButton">
           <button onClick={shuffleCards}>Start Game</button>
