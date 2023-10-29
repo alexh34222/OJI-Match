@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Lato:ital,wght@0,300;1,900&family=Ubuntu&display=swap");
+
+.home {
+  display: flex;
+
+  flex-direction: column;
+  color: white;
+  font-family: "Caveat", cursive;
+  min-height: 100vh;
+  background-color: #000000;
+}
+
+.home button:hover {
+  cursor: pointer;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.homeContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.homeContent h1 {
+  font-size: 5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.homeContent button {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 1rem 2rem;
+  border: 2px solid #ffffff;
+  border-radius: 5px;
+  background-color: transparent;
+  color: #ffffff;
+  transition: all 0.3s ease-in-out;
+}
