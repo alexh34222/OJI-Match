@@ -1,5 +1,5 @@
 import "../assets/css/Card.css";
-import Cover from "../assets/images/laptop.png";
+import Cover from "../assets/images/OJI.png";
 
 export default function Card({ card, handleCardChoice, flipped }) {
   const handleCardClick = () => {

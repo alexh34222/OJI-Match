@@ -2,20 +2,20 @@ import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import "../assets/css/Home.css";
 
-import Facebook from "../assets/images/facebook.png";
-import Instagram from "../assets/images/instagram.png";
-import Twitter from "../assets/images/twitter.png";
-import Youtube from "../assets/images/youtube.png";
-import Linkedin from "../assets/images/linkedin.png";
-import Spotify from "../assets/images/spotify.png";
+import Fish from "../assets/images/fish.png";
+import Bait from "../assets/images/fishing-baits.png";
+import Fishing from "../assets/images/fishing.png";
+import Hook from "../assets/images/hook.png";
+import Sea from "../assets/images/sea.png";
+import Seaweed from "../assets/images/seaweed.png";
 
 const cardImages = [
-  { src: Facebook },
-  { src: Instagram },
-  { src: Twitter },
-  { src: Youtube },
-  { src: Linkedin },
-  { src: Spotify },
+  { src: Fish },
+  { src: Bait },
+  { src: Fishing },
+  { src: Hook },
+  { src: Sea },
+  { src: Seaweed },
 ];
 
 export default function Home() {
@@ -88,8 +88,9 @@ export default function Home() {
     <div className="home">
       <div className="homeContent">
         <div className="homeTitle">
-          <h1>Memory Match Mania</h1>
-          <h6>By Alex Hall</h6>
+          <h1>OJI Match</h1>
+          <h6>Made by Alex Hall</h6>
+          <h6>Inspired by Dick Sugiyama</h6>
         </div>
         <div className="startButton">
           <button onClick={shuffleCards}>Start Game</button>
