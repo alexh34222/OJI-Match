@@ -58,6 +58,23 @@
   height: 150px;
 }
 
+.turns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Lato", sans-serif;
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
+.winningMessage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Lato", sans-serif;
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
+
 @media (max-width: 768px) {
   .cardSection img {
     height: 80px;

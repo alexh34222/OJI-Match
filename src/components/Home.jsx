@@ -24,6 +24,7 @@ export default function Home() {
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
   const [startedGame, setStartedGame] = useState(false);
+  const [gameWon, setGameWon] = useState(false);
 
   // shuffle the cards
   const shuffleCards = () => {
@@ -36,6 +37,7 @@ export default function Home() {
       setCards(shuffleCards);
       setTurns(0);
       setStartedGame(true);
+      setGameWon(false);
     }
   };
 
@@ -80,9 +82,16 @@ export default function Home() {
     setChoiceOne(null);
     setChoiceTwo(null);
     setStartedGame(false);
+    setGameWon(false);
   };
 
   //winning message
+
+  useEffect(() => {
+    if (cards.every((card) => card.matched) && cards.length > 0) {
+      setGameWon(true);
+    }
+  }, [cards]);
 
   return (
     <div className="home">
@@ -93,10 +102,18 @@ export default function Home() {
           <h6>Inspired by Dick Sugiyama</h6>
         </div>
         <div className="startButton">
-          <button onClick={shuffleCards}>Start Game</button>
-          <button onClick={resetGame}>Reset Game</button>
+          {startedGame ? (
+            <button onClick={resetGame}>End Game</button>
+          ) : (
+            <button onClick={shuffleCards}>Start Game</button>
+          )}
         </div>
       </div>
+      {gameWon ? (
+        <div className="winningMessage">You won in {turns} turns!</div>
+      ) : (
+        startedGame && <div className="turns">Turns: {turns}</div>
+      )}
       <div className="cards">
         {" "}
         <div className="cardSection">
