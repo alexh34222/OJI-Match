@@ -8,6 +8,10 @@ import Fishing from "../assets/images/fishing.png";
 import Hook from "../assets/images/hook.png";
 import Sea from "../assets/images/sea.png";
 import Seaweed from "../assets/images/seaweed.png";
+import Reel from "../assets/images/fishing-reel.png";
+import Rod from "../assets/images/fishing-rod.png";
+import Boat from "../assets/images/fishing-boat.png";
+import Guy from "../assets/images/fishing-guy.png";
 
 const cardImages = [
   { src: Fish },
@@ -16,6 +20,10 @@ const cardImages = [
   { src: Hook },
   { src: Sea },
   { src: Seaweed },
+  { src: Reel },
+  { src: Rod },
+  { src: Boat },
+  { src: Guy },
 ];
 
 export default function Home() {
