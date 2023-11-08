@@ -33,25 +33,39 @@ export default function Home() {
   const [choiceTwo, setChoiceTwo] = useState(null);
   const [startedGame, setStartedGame] = useState(false);
   const [gameWon, setGameWon] = useState(false);
+  const [mode, setMode] = useState("");
 
-  // shuffle the cards
-  const shuffleCards = () => {
-    if (startedGame) alert("Game already started");
-    else {
-      const shuffleCards = [...cardImages, ...cardImages]
-        .sort(() => Math.random() - 0.5)
-        .map((card) => ({ ...card, id: Math.random() }));
-
-      setCards(shuffleCards);
-      setTurns(0);
-      setStartedGame(true);
-      setGameWon(false);
+  const createCardPairs = (mode) => {
+    const allCards = [...cardImages, ...cardImages];
+    if (mode === "easy") {
+      const shuffledPairs = [];
+      while (shuffledPairs.length < 6) {
+        const card = allCards[Math.floor(Math.random() * allCards.length)];
+        if (!shuffledPairs.includes(card)) {
+          shuffledPairs.push(card);
+        }
+      }
+      return [...shuffledPairs, ...shuffledPairs];
+    }
+    if (mode === "hard") {
+      return allCards.sort(() => Math.random() - 0.5);
     }
   };
 
-  // check if the cards match
+  const shuffleCards = () => {
+    const shuffledCards = createCardPairs(mode).map((card) => ({
+      ...card,
+      id: Math.random(),
+    }));
+
+    setCards(shuffledCards);
+    setTurns(0);
+    setStartedGame(true);
+    setGameWon(false);
+  };
+
   useEffect(() => {
-    if (choiceOne && choiceTwo) {
+    if (choiceOne && choiceTwo && choiceOne !== choiceTwo) {
       if (choiceOne.src === choiceTwo.src) {
         setCards((prevCards) => {
           return prevCards.map((card) => {
@@ -72,10 +86,24 @@ export default function Home() {
   const handleCardChoice = (card) => {
     if (choiceOne === null && choiceTwo === null) {
       setChoiceOne(card);
-    } else if (choiceOne !== null && choiceTwo === null && card !== choiceOne) {
+    } else if (choiceOne !== null && choiceTwo === null && choiceOne !== card) {
       setChoiceTwo(card);
     }
   };
+
+  const handleEasyModeClick = () => {
+    setMode("easy");
+  };
+
+  const handleHardModeClick = () => {
+    setMode("hard");
+  };
+
+  useEffect(() => {
+    if (mode !== "") {
+      shuffleCards();
+    }
+  }, [mode]);
 
   const resetTurns = () => {
     setChoiceOne(null);
@@ -94,7 +122,6 @@ export default function Home() {
   };
 
   //winning message
-
   useEffect(() => {
     if (cards.every((card) => card.matched) && cards.length > 0) {
       setGameWon(true);
@@ -113,7 +140,10 @@ export default function Home() {
           {startedGame ? (
             <button onClick={resetGame}>End Game</button>
           ) : (
-            <button onClick={shuffleCards}>Start Game</button>
+            <>
+              <button onClick={handleEasyModeClick}>Easy Mode</button>
+              <button onClick={handleHardModeClick}>Hard Mode</button>
+            </>
           )}
         </div>
       </div>
@@ -123,17 +153,20 @@ export default function Home() {
         startedGame && <div className="turns">Turns: {turns}</div>
       )}
       <div className="cards">
-        {" "}
-        <div className="cardSection">
-          {cards.map((card) => (
-            <Card
-              key={card.id}
-              card={card}
-              handleCardChoice={handleCardChoice}
-              flipped={card === choiceOne || card === choiceTwo || card.matched}
-            />
-          ))}
-        </div>
+        {cards.length > 0 && (
+          <div className="cardSection">
+            {cards.map((card) => (
+              <Card
+                key={card.id}
+                card={card}
+                handleCardChoice={handleCardChoice}
+                flipped={
+                  card === choiceOne || card === choiceTwo || card.matched
+                }
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
